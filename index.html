@@ -1,0 +1,200 @@
+<?php
+/**
+ * Coupon Default Template.
+ *
+ * It will show coupons single item.
+ * But this is not single page.
+ *
+ * @package    WPOffers
+ * @author     KitThemes (https://www.kitthemes.com/)
+ * @copyright  Copyright (c) 2020, KitThemes
+ * @since      1.0.0
+ */
+
+?>
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'><link rel="stylesheet" href="./style.css">
+<div class="wpo-coupon is-grid new-grid">
+  
+	<div class="wpo-coupon-header">
+  <div class="wpo-coupon__text wpo-coupon__text_cstyle">
+		<div class="wpo-coupon__content">
+		<div class="wpo-coupon__button">
+			<?php $coupon->button(); ?>
+			<?php if ( $coupon->show_expiration_date() ) : ?>
+				<div style="   font-size: 0.9rem !important;" class="wpo-coupon__expiration">
+					<?php $coupon->expiration(); ?>
+				</div>
+			<?php endif; ?>
+		</div></div>
+			<?php $coupon->offer_text(); ?>
+		</div>
+      </div>
+      </div>
+
+      <div class="wpo-coupon is-grid new-grid2">
+
+	<div class="wpo-coupon-header">
+    
+		<div class="wpo-coupon__label">
+			<?php $coupon->label(); ?>
+		</div>
+    <div  class="wpo-btn-coupon img-coupon">
+
+		<?php $coupon->thumbnail(); ?>
+      </div>
+	</div>
+        <h1> 
+        <?php 
+            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+              $code = $_GET['code'];
+              // echo $code;
+            }
+          ?>
+        </h1>
+	<div class="wpo-coupon-body">
+		<?php $coupon->categories(); ?>
+		<?php $coupon->title( 'wpo-coupon__title' ); ?>
+   
+		<div class="wpo-coupon__content">
+			
+			<?php $coupon->content(); ?>
+		</div>
+  
+		<div class="wpo-coupon__button">
+			<?php $coupon->button(); ?>
+			<?php if ( $coupon->show_expiration_date() ) : ?>
+				<div class="wpo-btn wpo-btn-block wpo-btn-coupon wpo-clipboard  wpo-clipboard-Cstyle"> " اضغط هنا لنسخ الكوبون والانتقال للصفحة"</div>	
+<div class="hide-text">
+				<div class="wpo-coupon__expiration">
+					<?php $coupon->expiration(); ?>
+				</div>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+<style>
+  .wpo-coupon .wpo-btn-coupon {
+    border-color: #df1111;
+    border: none;
+}
+.wpo-coupon__expiration{    padding: 8px 0;
+    font-size: 0.9rem !important;}
+  .new-grid{
+    border: 2px dashed #d5d1d8;
+    vertical-align: top;
+    float: none;
+    display: block;
+    text-align: center;
+    border-radius: 6px;
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    background: #fff;
+  }
+  .new-grid:after {
+    content: '\f0c4';
+    font-family: FontAwesome;
+    color: #c4c1c7;
+    font-size: 25px;
+    position: absolute;
+    top: 53px;
+    left: 12px
+}
+.img-coupon{
+  border: none !important;
+    background-color:transparent;
+    color: none;
+}
+  .wpo-coupon.new-grid .wpo-coupon-header .wpo-coupon__text {
+    
+    position: unset;
+}
+.new-grid .wpo-coupon__text_cstyle {
+    width: 100%;}
+	.hide-text{
+    display: none;
+  }
+#done{
+  background-color: #F16669;
+  border: none;
+  padding: 15px 20px;
+  color: white;
+  font-size: 2em;
+  margin-top: 40px;
+  transition: 1s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#done:hover{
+  background-color: darken(#F16669, 30)
+}
+
+
+.wpo-coupon__button:hover .wpo-clipboard-Cstyle {
+    padding-right: 25px; 
+    opacity: 0;
+    z-index: -10;
+    /* display: none; */
+}
+
+.wpo-clipboard-Cstyle:hover {
+    padding-right: 25px; 
+    opacity: 0;
+    z-index: -10;
+    /* display: none; */
+}
+.wpo-coupon__text_cstyle{
+	width: 30%;
+    font-size: 0.8rem !important;
+    padding: 0 !important;
+}
+.swal2-styled.swal2-confirm {
+  
+    color: #fff !important;
+    background-color: #1d1f2d !important;
+}
+.swal2-styled.swal2-confirm  a{
+  
+  color: #fff !important;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+
+<script> 
+
+// $('.wpo-clipboard').on('click', function(){
+//   alert('تم نسخ كود الخصم بنجاح');
+// });
+
+$(".wpo-btn-coupon").click(function(event) {
+  var url = document.querySelector("a.wpo-btn-coupon").href;
+  console.log(url);
+	// swal("تم نسخ الكود بنجاح <br>  اذا بم يتم التحويل المباشر اضغط هنا للتحويل <a class='btn btn-primary' href='"+url+"'></a>", "جاري  نقلك لصفحة المنتج", "success")
+  swal.fire({
+    title: "<h2><b> تم نسخ الكود بنجاح و جاري  نقلك لصفحة المنتج </b></h2>", 
+    confirmButtonText: "<a class='wpo-coupon__expiration' href='https://balsam-store.com/'>الذهاب  للموقع  </a>", 
+    allowOutsideClick: false,
+
+  });
+	event.preventDefault();
+
+	setTimeout(function(){
+
+        window.open(document.querySelector("a.wpo-btn-coupon").href ,"_self");
+
+}, 2000);
+// تم نسخ الكود بنجاح <br> اذا بم يتم التحويل المباشر اضغط هنا للتحويل <a class='btn btn-primary' href='https://balsam-store.com/'></a>
+
+});
+document.querySelector("a.wpo-btn-coupon").onclick = reply_click;
+
+</script>
+
